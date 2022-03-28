@@ -18,6 +18,7 @@ import {
   TableContainer,
   TablePagination
 } from '@mui/material';
+import propTypes from 'prop-types';
 // components
 import Page from '../components/Page';
 import Label from '../components/Label';
@@ -70,13 +71,13 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function User() {
+export default function CustomersView() {
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [selected, setSelected] = useState([]);
   const [orderBy, setOrderBy] = useState('name');
   const [filterName, setFilterName] = useState('');
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const navigate = useNavigate();
 
@@ -138,7 +139,7 @@ export default function User() {
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-            User
+            Customers
           </Typography>
           <Button
             variant="contained"
@@ -250,3 +251,7 @@ export default function User() {
     </Page>
   );
 }
+
+CustomersView.propTypes = {
+  // some-prop-name: PropTypes.<< prop type >> (array, string, boolean ...)
+};

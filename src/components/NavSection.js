@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink as RouterLink, matchPath, useLocation } from 'react-router-dom';
+import { NavLink as RouterLink, matchPath, useLocation, useParams } from 'react-router-dom';
 // material
 import { alpha, useTheme, styled } from '@mui/material/styles';
 import { Box, List, Collapse, ListItemText, ListItemIcon, ListItemButton } from '@mui/material';
@@ -93,6 +93,7 @@ function NavItem({ item, active }) {
             {children.map((item) => {
               const { title, path } = item;
               const isActiveSub = active(path);
+              if (isActiveSub) console.log('current ', item.path);
 
               return (
                 <ListItemStyle
@@ -153,7 +154,11 @@ NavSection.propTypes = {
 
 export default function NavSection({ navConfig, ...other }) {
   const { pathname } = useLocation();
-  const match = (path) => (path ? !!matchPath({ path, end: false }, pathname) : false);
+  const params = useParams();
+  const match = (path) => {
+    if (Object.keys(params) && Object.keys(params).length > 0) path += '/*';
+    return path ? !!matchPath({ path, end: true }, pathname) : false;
+  };
 
   return (
     <Box {...other}>

@@ -14,8 +14,8 @@ import {
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // component
+import { homePath } from '../../../utils/constants';
 import Iconify from '../../../components/Iconify';
-
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
@@ -35,7 +35,9 @@ export default function LoginForm() {
     },
     validationSchema: LoginSchema,
     onSubmit: () => {
-      navigate('/dashboard', { replace: true });
+      navigate(homePath, {
+        replace: true
+      });
     }
   });
 
