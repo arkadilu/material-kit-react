@@ -16,11 +16,13 @@ function DisplayInputFieldWIthDefaultValue({ student, label }) {
   return (
     <TextField
       fullWidth
-      // {...key}
       label={label.toUpperCase()}
       defaultValue={student[label]}
       InputLabelProps={{
         shrink: true
+      }}
+      sx={{
+        p: 1
       }}
     />
   );
@@ -35,14 +37,20 @@ export default function CustomerDetails() {
     if (studentid)
       setTimeout(() => {
         setStudent({
+          key: studentid,
           name: 'Test Test',
-          'student id': studentid,
-          par2: 'akjshdkas',
-          par3: 'akjshdkas',
-          par4: 'akjshdkas',
-          par5: 'akjshdkas',
-          par6: 'akjshdkas',
-          par7: 'akjshdkas'
+          'tax id': 'akjshdkas',
+          birthdate: 'akjshdkas',
+          'training location': 'akjshdkas',
+          rank: 'asdasd',
+          'next exam': 'alksjd',
+          address: 'akjshdkas',
+          phone: 'akjshdkas',
+          email: 'akjshdkas',
+          "mother's name": 'akjshdkas',
+          "mother's phone": 'akjshdkas',
+          "father's name": 'akjshdkas',
+          "father's phone": 'akjshdkas'
         });
       }, 1000);
   }, [studentid]);
@@ -50,20 +58,8 @@ export default function CustomerDetails() {
   return (
     <Page title={`Student | ${student?.name}`}>
       <Container>
-        {/* {student? 
-          <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-          <Typography variant="h4" gutterBottom>
-          CustomerDetails {studentid}
-          </Typography>
-          </Stack>
-        :  */}
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 2, md: 4 }}>
-          <Box
-            sx={{
-              width: ['100%', '20%'],
-              minWidth: 100
-            }}
-          >
+          <Box sx={{ width: ['100%', '20%'], minWidth: 200 }}>
             {student ? (
               <Box
                 component="img"
@@ -74,17 +70,36 @@ export default function CustomerDetails() {
               <Skeleton variant="rectangular" animation="wave" sx={{ height: [150, 250] }} />
             )}
           </Box>
-          <Box
-            sx={{
-              width: ['100%', '40%']
-            }}
-          >
+          <Box sx={{ width: ['100%', '30%'], p: 0.3 }}>
             {student ? (
               Object.keys(student)
-                .slice(0, 4)
+                .filter((l) => l !== 'key')
+                .slice(0, 5)
                 .map((label, index) => (
                   <DisplayInputFieldWIthDefaultValue
-                    key={`student-detail-f${index}`}
+                    key={`${student.key}-f${index}`}
+                    student={student}
+                    label={label}
+                  />
+                ))
+            ) : (
+              <>
+                <Skeleton variant="text" animation="wave" height={80} />
+                <Skeleton variant="text" animation="wave" height={80} />
+                <Skeleton variant="text" animation="wave" height={80} />
+                <Skeleton variant="text" animation="wave" height={80} />
+                <Skeleton variant="text" animation="wave" height={80} />
+              </>
+            )}
+          </Box>
+          <Box sx={{ width: ['100%', '30%'], p: 0.3 }}>
+            {student ? (
+              Object.keys(student)
+                .filter((l) => l !== 'key')
+                .slice(5, 9)
+                .map((label, index) => (
+                  <DisplayInputFieldWIthDefaultValue
+                    key={`${student.key}-f${index}`}
                     student={student}
                     label={label}
                   />
@@ -98,23 +113,16 @@ export default function CustomerDetails() {
               </>
             )}
           </Box>
-          <Box
-            sx={{
-              width: ['100%', '40%']
-            }}
-          >
+          <Box sx={{ width: ['100%', '30%'], p: 0.3 }}>
             {student ? (
               Object.keys(student)
-                .slice(5, 8)
+                .filter((l) => l !== 'key')
+                .slice(9)
                 .map((label, index) => (
-                  <TextField
-                    fullWidth
-                    key={`student-detail-f${index}`}
+                  <DisplayInputFieldWIthDefaultValue
+                    key={`${student.key}-f${index}`}
+                    student={student}
                     label={label}
-                    defaultValue={student[label]}
-                    InputLabelProps={{
-                      shrink: true
-                    }}
                   />
                 ))
             ) : (
@@ -127,7 +135,6 @@ export default function CustomerDetails() {
             )}
           </Box>
         </Stack>
-        {/* } */}
       </Container>
     </Page>
   );
